@@ -1,0 +1,13 @@
+# Material de trabajo: queda en la compu, no va al repo del sitio
+fotos-nuevas/
+capturas/
+images/_comparacion-fachada.png
+MASTERPROMPT.md
+PROMPT-LOGOS.md
+REPORTE.md
+REPORTE-LOGOS.md
+
+# Sistema
+Thumbs.db
+desktop.ini
+.DS_Store
