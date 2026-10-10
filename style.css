@@ -25,6 +25,9 @@
   --font-head: 'Barlow Condensed', sans-serif;
   --font-body: 'Barlow', sans-serif;
   --nav-h:     68px;
+  /* opacidad de la capa negra sobre la foto del hero */
+  --hero-oscuro-texto: 0.88;   /* lado izquierdo, detras del texto */
+  --hero-oscuro-foto:  0.60;   /* lado derecho, donde se ve la foto */
   --max-w:     1200px;
   --radius:    8px;
 }
@@ -242,9 +245,9 @@ ul { list-style: none; }
 .hero {
   position: relative;
   min-height: 100vh;
-  background-image:url(images/mosconifrentegm.png) ;
+  background-image: url(images/envios-fachada.webp);
   background-size: cover;
-  background-position: center top;
+  background-position: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -254,12 +257,21 @@ ul { list-style: none; }
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(14,14,14,0.75) 0%,
-    rgba(14,14,14,0.55) 50%,
-    rgba(14,14,14,0.90) 100%
-  );
+  /* dos capas del mismo negro: la vertical empareja arriba y funde con la
+     barra de abajo, la horizontal apaga el lado del texto */
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(14,14,14,0.35) 0%,
+      rgba(14,14,14,0) 40%,
+      rgba(14,14,14,0.90) 100%
+    ),
+    linear-gradient(
+      to right,
+      rgba(14,14,14,var(--hero-oscuro-texto)) 0%,
+      rgba(14,14,14,var(--hero-oscuro-texto)) 35%,
+      rgba(14,14,14,var(--hero-oscuro-foto)) 100%
+    );
 }
 
 .hero-content {
@@ -855,6 +867,27 @@ ul { list-style: none; }
    RESPONSIVE — MOBILE (≤ 600px)
    ============================ */
 @media (max-width: 600px) {
+
+  /* la foto es 16:9 y el hero la escala por alto, asi que nunca desborda
+     en vertical: el encuadre solo se puede correr en horizontal. Aca se
+     corre al lado del leon para que las letras grandes del cartel no
+     queden justo atras del titulo */
+  .hero { background-position: left center; }
+
+  /* el texto ocupa todo el ancho: oscurecido parejo, sin degrade lateral */
+  .hero-overlay {
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(14,14,14,0.35) 0%,
+        rgba(14,14,14,0) 40%,
+        rgba(14,14,14,0.90) 100%
+      ),
+      linear-gradient(
+        rgba(14,14,14,var(--hero-oscuro-texto)),
+        rgba(14,14,14,var(--hero-oscuro-texto))
+      );
+  }
 
   .hero-content { padding: 48px 20px 24px; }
 
